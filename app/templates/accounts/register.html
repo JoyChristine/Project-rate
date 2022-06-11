@@ -28,6 +28,7 @@
                 <form class="sign-up-form" method="POST">
                     {% csrf_token %}
                     <h2 class="title">Sign up</h2>
+                    {{form.errors}}
                     <div class="input-field">
                         <i class="fas fa-user"></i>
                        {{form.username}}
@@ -45,7 +46,7 @@
                         {{form.password2}}
                     </div>
                     <input class="btn login_btn" type="submit" value="Sign Up">
-                    {{form.errors}}
+                    
                     <div class="foot">
                         <p> Already signed up? <span><a href="{% url 'login' %}">Sign In</a></span></p>
                         
