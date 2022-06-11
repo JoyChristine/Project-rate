@@ -105,7 +105,7 @@ form.sign-in-form {
 }
 
 
-.btn {
+#login_btn,#sign_up_btn{
     width: 150px;
     color: #d2d3d2;
     background-color: rgb(31, 41, 41);
@@ -180,4 +180,28 @@ form.sign-in-form {
         bottom: 30%;
         left: 50%;
     }
+}
+/* USER PROFILE */
+/* .profile-head {
+    transform: translateY(5rem)
+} */
+
+.cover {
+    background-color:#2d92c0;
+    background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+    background-size: cover;
+    background-repeat: no-repeat
+}
+
+#card{
+    border: 1px solid #000000;
+}
+#card .card-body{
+    background-color:#2d92c0;
+}
+#cont{
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    
 }
