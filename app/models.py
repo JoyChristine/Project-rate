@@ -51,3 +51,14 @@ class Profile(models.Model):
     def get_all_profiles(cls):
         author=cls.object.all()
         return author
+
+class ProjectsAdded(models.Model):
+    name = models.CharField(max_length=40)
+    context = models.TextField()
+
+class ProfilesAdded(models.Model):
+    profile_pic = models.ImageField(upload_to='profile_img/',null=True)
+    bio = models.TextField()
+    author = models.CharField(max_length=10)
+    projects = models.ForeignKey(Project, on_delete=models.CASCADE,blank=True)
+    email =models.EmailField(max_length=20)
