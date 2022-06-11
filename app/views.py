@@ -5,7 +5,7 @@ from .forms import CreateUserForm
 from django.contrib.auth import authenticate,login,logout
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'all/home.html')
 
 def register(request):
     form = CreateUserForm()
