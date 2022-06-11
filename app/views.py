@@ -14,8 +14,6 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-           
-            
             return redirect('login')
 
 
@@ -32,5 +30,11 @@ def signin(request):
         if user is not None:
             login(request,user)
             return redirect('home')
+        else:
+            messages.info(request,'Username or password is incorrect')
 
     return render(request, 'accounts/login.html')
+
+def logoutuser(request):
+    logout(request)
+    return redirect('login')
