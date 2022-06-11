@@ -1,13 +1,20 @@
+from email.mime import image
 from unicodedata import name
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Project(models.Model):
-    name = models.CharField(max_length=20)
-    context = models.TextField(blank=True)
+    author = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    title = models.CharField(max_length=20)
+    context = models.TextField(max_length=120,blank=True)
+    image=models.ImageField(upload_to='project_img',null=True)
+    date=models.DateTimeField(auto_now_add=True,null=True)
+    rate=models.IntegerField(default=0)
+    url=models.URLField(null=True)
 
-    def __str__(self):
-        return f'{self.name}'
+    # def __str__(self):
+    #     return f'{self.name}'
 
     def save_project(self):
         self.save()
@@ -29,7 +36,7 @@ class Project(models.Model):
 class Profile(models.Model):
     profile_pic = models.ImageField(upload_to='profile_img/',null=True)
     bio = models.TextField()
-    author = models.CharField(max_length=10)
+    author = models.OneToOneField(User, on_delete=models.CASCADE)
     projects = models.ForeignKey(Project, on_delete=models.CASCADE,blank=True)
     email =models.EmailField(max_length=20)
 
