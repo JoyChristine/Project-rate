@@ -45,10 +45,12 @@
                         <i class="fas fa-lock"></i>
                         {{form.password2}}
                     </div>
-                    <input class="btn sign_up_btn" type="submit" value="Sign Up">
+                    <input class="btn sign_up_btn" id="sign_up_btn" type="submit" value="Sign Up">
                     
                     <div class="foot">
-                        <p> Already signed up? <span><a href="{% url 'login' %}">Sign In</a></span></p>
+                        <p> Already signed up? 
+                            <span><a href="{% url 'login' %}">Sign In</a>
+                            </span></p>
                         
                     </div>
                     
