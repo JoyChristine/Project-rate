@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+
 class Project(models.Model):
     author = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     title = models.CharField(max_length=20)
@@ -13,8 +14,8 @@ class Project(models.Model):
     rate=models.IntegerField(default=0)
     url=models.URLField(null=True)
 
-    # def __str__(self):
-    #     return f'{self.name}'
+    def __str__(self):
+        return self.title
 
     def save_project(self):
         self.save()
