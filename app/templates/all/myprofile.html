@@ -68,7 +68,23 @@
                         <!-- <a href="#" class="btn btn-link text-muted">Show all</a> -->
                     </div> 
                     <div class="row"> 
+                        {%for project in user_projects %}
                         <div class="col-lg-4 mb-2 pr-lg-1">
+                            <div class="card mb-3" id="card"  style="width: 100%;">
+                                <!-- <img src="{%static 'img/proj.jpg'%}" alt="..." height="220"
+                                    class="rounded "> -->
+                                <div class="card-body">
+                                    <h4>{{project.title}}</h4>
+                
+                                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea veniam, 
+                                        similique iste quaerat nobis accusantium 
+                                        consequuntur deleniti unde temporibus possimus,
+                                         natus distinctio sit, nam alias nostrum assumenda 
+                                         saepe illum a.</p>
+                                </div>
+                            </div>
+                        {%endfor%}
+                        <!-- <div class="col-lg-4 mb-2 pr-lg-1">
                             <div class="card mb-3" id="card"  style="width: 100%;">
                                 <img src="{%static 'img/proj.jpg'%}" alt="..." height="220"
                                     class="rounded ">
@@ -128,7 +144,7 @@
                                          saepe illum a.</p>
                                 </div>
                             </div>
-                        </div> 
+                        </div>  -->
                     </div>
                 </div> 
             </div> 
