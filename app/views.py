@@ -1,15 +1,17 @@
+
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm
+from django.urls import reverse_lazy
+from .forms import CreateUserForm, ProjectFormSet
 from django.contrib.auth import authenticate,login,logout
-
+from .models import Project
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import ProjectsAdded,ProfilesAdded
 from .serializer import ProjectSerializer,ProfileSerializer
 from rest_framework import status
-
+from django.views.generic import TemplateView,ListView
 
 
 
@@ -53,10 +55,50 @@ def logoutuser(request):
     logout(request)
     return redirect('login')
 
+class ProjectList(ListView):
+    model = Project
+    template_name = 'all/home.html'
+
+
+
+class ProjectAdd(TemplateView):
+    template_name = 'all/addproject.html'
+
+    # func to handle get request
+    def get(self, *args, **kwargs):
+        formset =  ProjectFormSet(queryset=Project.objects.none())
+        return self.render_to_response({'project_formset':formset})
+
+    # func to handle POST request
+    def post(self, *args, **kwargs):
+        formset = ProjectFormSet(data=self.request.POST)
+
+        if formset.is_valid():
+            formset.save()
+            return redirect(reverse_lazy("project_list"))
+
+        return self.render_to_response({'project_formset':formset})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # api's
-class ProjectList(APIView):
+class MyProjectList(APIView):
     def get(self, request, format=None):
         all_projects = ProjectsAdded.objects.all()
         serializers = ProjectSerializer(all_projects,many=True)
@@ -69,7 +111,7 @@ class ProjectList(APIView):
             return Response(serializers.data,status=status.HTTP_201_CREATED)
         return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
 
-class ProfileList(APIView):
+class MyProfileList(APIView):
     def get(self, request, format=None):
         all_profiles = ProfilesAdded.objects.all()
         serializers = ProfileSerializer(all_profiles,many=True)
