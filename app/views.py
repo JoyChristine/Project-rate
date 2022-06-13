@@ -1,5 +1,5 @@
 
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -12,17 +12,17 @@ from .models import ProjectsAdded,ProfilesAdded
 from .serializer import ProjectSerializer,ProfileSerializer
 from rest_framework import status
 from django.views.generic import TemplateView,ListView
-
+from django.contrib.auth.models import User
 
 
 # Create your views here.
 def home(request):
-    return render(request, 'all/home.html')
+    project = Project.objects.all()
+    users = User.objects.all()
 
-def userprofile(request):
-    return render(request,'all/myprofile.html')
 
-    
+    return render(request, 'all/home.html',{'project': project, 'users': users})
+
 def register(request):
     form = CreateUserForm()
 
@@ -55,6 +55,30 @@ def logoutuser(request):
     logout(request)
     return redirect('login')
 
+def userprofile(request,username):
+    user_prof = get_object_or_404(User, username = username)
+    if request.user == user_prof:
+        return redirect('userprofile',username =request.user.username)
+    user_projects = user_prof.profile.projects.all()
+
+    # followers = Follow.objects.flter(followed=user_prof.profile)
+    # follow_status = None
+
+    # for follower in followers:
+    #     if request.user.profile ==follower.follower:
+    #         follow_status = True
+    #     else:
+    #         follow_status = false
+
+    context = {
+        'user_prof':user_prof,
+        'user_projects':user_projects,
+
+    }
+
+    return render(request,'all/myprofile.html', context)
+
+    
 class ProjectList(ListView):
     model = Project
     template_name = 'all/home.html'
