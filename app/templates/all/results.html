@@ -1,0 +1,38 @@
+{%extends 'all/base.html'%}
+{%load static%}
+{%block content%}
+<div class="row" id="results-row">
+   
+    {% if searched %}
+        <h1> You searched for {{searched}}
+        </h1>
+        
+    <div class="col" style="display:flex;flex-wrap: wrap;">     
+        {%for proj in project_results%}
+        <div class="col-md-3 mb-3" style="margin-left:3vw">
+            <div class="card">
+                <div class="card-body" id="project-card">
+                    <a href="{% url 'project_details' proj.id%}">
+                        <img src="{{proj.image.url}}" class="img-fluid" alt="">
+                    </a>
+                    <h5>{{proj.title}}</h5>
+                    <!-- <p >{{proj.context}}</p> -->
+                    <p>{{proj.date|date}}</p>
+                  
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+       
+        
+            
+     
+        {% else %}
+        <h5 class="text-center"> No such Project exists <strong>{{message}}</strong></h5>
+
+       
+        {% endif %}
+        <hr>
+        
+{%endblock%}
