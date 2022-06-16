@@ -1,35 +1,48 @@
 {%extends 'all/base.html'%}
 {%load static%}
 {%block content %}
-
 <div class="contain" id="container-profile">
     <div class="row py-4 px-4">
-         <div class="col-md-12 mx-auto"> 
-             <!-- Profile widget --> 
-            <div class="bg-white shadow rounded overflow-hidden">
+        <div class="col-md-12 mx-auto" style="border:1px white;"> 
+             Profile widget
+           
                 <div class="px-4 pt-0 pb-4 cover"> 
                     <div class="media align-items-end profile-head"> 
                         <div class="col-md-10 profile mr-3" style="display:flex;">
                             <div class="col-md-5 mt-5">
                                
-                                <img src="{%static 'img/prof.jpg'%}" alt="..." 
-                            width="170" class="rounded mb-2 img-thumbnail">
+                                <img src="{{user.profile.profile_pic.url}}" alt="..." 
+                             class="img-thumbnail" id="profile_pic">
                             </div>
                             <div class="col-md-3" >
                                 <div class="media-body mb-7 text-white"> 
-                                    <h4 class="mt-5 mb-0 ">Qwerty</h4> 
+                                    <h4 class="mt-5 mb-0 ">{{user}}</h4> 
                                     <p class="small mb-4">
-                                        <i class="fas fa-map-marker-alt mr-2"></i> &nbsp;Nakuru
+                                        <i class="fas fa-map-marker-alt mr-2"></i> &nbsp;{{ user.profile.location }}
                                     
                                     </p>
                                     <p class="small mb-4">
-                                        <i class="fas fa-envelope">&nbsp;Test@gmail.com</i>
+                                        <i class="fas fa-envelope">&nbsp;{{user.email}}</i>
                                     </p>
-                                        
-                                        
+                                  
+                                    <p class="font-italic mb-0" style="color:white;">Bio: {{ user.profile.bio }}</p>
+                                    <br>
+                                    <a class="btn btn-outline-light btn-sm btn-block" data-bs-toggle="modal" data-bs-target=".bd-example-modal-md"><strong>Edit Profile</strong></a>
 
-                                    <a href="#" class="btn btn-outline-light btn-sm btn-block">Edit profile</a>
+                        
                                     <a href="{% url 'logout' %}" class="btn btn-outline-light btn-sm btn-block">Logout</a>
+                                </div>
+                            </div>
+                            <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-md ">
+                                    <div class="modal-content">
+                                        <form action="" method="post" novalidate enctype="multipart/form-data" class="mr-4 mt-4 ml-4 mb-4">
+                                            {% csrf_token%}
+                                            
+                                            {{ updateUserProfileForm.as_p}}
+                                            <button type="submit" class="btn btn-primary btn-sm"> Update Profile</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                     
@@ -38,52 +51,35 @@
                     
                     </div> 
                 </div> 
-                <div class="bg-light p-4 d-flex justify-content-end text-center"> 
-                    <ul class="list-inline mb-0"> 
-                        <li class="list-inline-item"> 
-                            <h5 class="font-weight-bold mb-0 d-block">215</h5>
-                            <small class="text-muted"> <i class="fas fa-image mr-1"></i>Projects</small>
-                        </li> 
-                        <li class="list-inline-item"> 
-                            <h5 class="font-weight-bold mb-0 d-block">745</h5>
-                            <small class="text-muted"> <i class="fas fa-user mr-1"></i>Followers</small>
-                        </li> 
-                        <li class="list-inline-item"> 
-                            <h5 class="font-weight-bold mb-0 d-block">340</h5>
-                            <small class="text-muted"> <i class="fas fa-user mr-1"></i>Following</small>
-                        </li> 
-                    </ul> 
-                </div> 
-                <div class="px-4 py-3"> 
-                    <h5 class="mb-0">Bio</h5> 
-                    <div class="p-4 rounded shadow-sm bg-light"> 
-                        <p class="font-italic mb-0">Web Developer</p>
-                        <p class="font-italic mb-0">Lives in New York</p> 
-                        <p class="font-italic mb-0">Photographer</p> 
-                    </div> 
-                </div> 
+                
+                
                 <div class="py-4 px-4"> 
                     <div class="d-flex align-items-center justify-content-between mb-3"> 
                         <h5 class="mb-0">Recent projects</h5>
-                        <!-- <a href="#" class="btn btn-link text-muted">Show all</a> -->
+                        
                     </div> 
-                    <div class="row"> 
-                        {%for project in user_projects %}
-                        <div class="col-lg-4 mb-2 pr-lg-1">
-                            <div class="card mb-3" id="card"  style="width: 100%;">
-                                <!-- <img src="{%static 'img/proj.jpg'%}" alt="..." height="220"
-                                    class="rounded "> -->
-                                <div class="card-body">
-                                    <h4>{{project.title}}</h4>
-                
-                                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea veniam, 
-                                        similique iste quaerat nobis accusantium 
-                                        consequuntur deleniti unde temporibus possimus,
-                                         natus distinctio sit, nam alias nostrum assumenda 
-                                         saepe illum a.</p>
+                    <div class="row">
+                        <h4 class="mt-5 mb-0 "style="color:white;">Projects</h4> 
+                        {%for proj in projects%}
+                            <div class="col-md-3 mb-3">
+                                <div class="card">
+                                    <div class="card-body" id="project-card">
+                                        <a href="{% url 'project_details' proj.id%}">
+                                            <img src="{{proj.image.url}}" class="img-fluid" alt="">
+                                        </a>
+                                        <h5>{{proj.title}}</h5>
+                                    
+                                        <p>{{proj.user.username }}</p>
+                                        <p>{{proj.date|date}}</p>
+                                    
+                                    </div>
                                 </div>
                             </div>
-                        {%endfor%}
+                            {%endfor%}
+
+
+
+
                         <!-- <div class="col-lg-4 mb-2 pr-lg-1">
                             <div class="card mb-3" id="card"  style="width: 100%;">
                                 <img src="{%static 'img/proj.jpg'%}" alt="..." height="220"
@@ -144,7 +140,7 @@
                                          saepe illum a.</p>
                                 </div>
                             </div>
-                        </div>  -->
+                        </div> 
                     </div>
                 </div> 
             </div> 
