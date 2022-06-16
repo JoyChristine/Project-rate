@@ -1,104 +1,48 @@
 {%extends 'all/base.html'%}
 {%load static%}
 {%block content %}
+
 <div class="" id="home-container">
     <div class="row" id="body-row"> 
-        <div class="post" style="color: #fff;">
-            <h2>Welcome to Project rate</h2>
-            <p>You can post a project & rate projects</p>
-            <button  id="add-project">  <a href='{% url "addproject" %}'>Add Project</a></button>
+        
+          
+     
+        
+        <div class="post mt-3" style="color: #fff;">
+           
+             
+           <form class="mb-0 mt-6 mb-4 ml-0 h1" id="searchform" action="{% url 'search' %}" method="POST">
+            {%csrf_token%}
+            <input name="searched" autocomplete="off" id="searching" class="form-control" placeholder="Search Project....">
+           <i class="spinner "></i>
+           
+       </form>
+     
            
         </div>
-      
-      
         
-        {%for project in object_list%}
-        <div class="card-col" >
-            <div class="card mb-3" id="card">
-                <!-- <img src="{%static 'img/proj.jpg'%}" alt="..." height="220"
-                    class="rounded"> -->
-                    <!-- <img src="{{image}}" alt="..." height=""> -->
-                <div class="card-body">
+    
+        {%for proj in projects%}
+        <div class="col-md-3 mb-3" id="proj-display">
+            <div class="card">
+                <div class="card-body" id="project-card">
+                    <a href="{% url 'project_details' proj.id%}">
+                        <img src="{{proj.image.url}}" class="img-fluid" alt="">
+                    </a>
+                    <h5>{{proj.title}}</h5>
+                  <div class="card-foot" style="display:flex;justify-content:space-between">
+                    <p>By: {{proj.user}}</p>
+                    <p>{{proj.date|date}}</p>
+                  </div>
                    
-                    <h4>{{project.title}}</h4>
-    
-                    <p >{{project.context}}</p>
-                    <i>{{project.url}}</i>
-                    
-                    <p>Added {{project.date|timesince}} ago</p>
-                    
+                  
                 </div>
             </div>
-          
-        </div> 
+        </div>
         {%endfor%}
-        
-        
-        
-        
-        
-        
-        <!-- <div class="card-col" >
-            <div class="card mb-3" id="card">
-                <img src="{%static 'img/proj.jpg'%}" alt="..." height="220"
-                    class="rounded">
-                <div class="card-body" style="font-size:1vw;height:20px">
-                    <h4>Title</h4>
     
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea veniam, 
-                        similique iste quaerat nobis accusantium 
-                        consequuntur deleniti unde temporibus possimus,
-                         natus distinctio sit, nam alias nostrum assumenda 
-                         saepe illum a.</p>
-                </div>
-            </div>
-          
-        </div> 
-        <div class="card-col">
-            <div class="card mb-3" id="card"  >
-                <img src="{%static 'img/proj.jpg'%}" alt="..." height="220"
-                    class="rounded">
-                <div class="card-body">
-                    <h4>Title</h4>
-    
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea veniam, 
-                        similique iste quaerat nobis accusantium 
-                        consequuntur deleniti unde temporibus possimus,
-                         natus distinctio sit, nam alias nostrum assumenda 
-                         saepe illum a.</p>
-                </div>
-            </div>
-        </div> 
-        <div class="card-col">
-            <div class="card mb-3" id="card">
-                <img src="{%static 'img/proj.jpg'%}" alt="..." height="220"
-                    class="rounded ">
-                <div class="card-body">
-                    <h4>Title</h4>
-    
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea veniam, 
-                        similique iste quaerat nobis accusantium 
-                        consequuntur deleniti unde temporibus possimus,
-                         natus distinctio sit, nam alias nostrum assumenda 
-                         saepe illum a.</p>
-                </div>
-            </div>
-        </div> 
-        <div class="card-col">
-            <div class="card mb-3" id="card">
-                <img src="{%static 'img/proj.jpg'%}" alt="..." height="220"
-                    class="rounded">
-                <div class="card-body">
-                    <h4>Title</h4>
-    
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea veniam, 
-                        similique iste quaerat nobis accusantium 
-                        consequuntur deleniti unde temporibus possimus,
-                         natus distinctio sit, nam alias nostrum assumenda 
-                         saepe illum a.</p>
-                </div>
-            </div>
-        </div>  -->
+        
+     
     </div>
 </div>
 
