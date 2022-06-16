@@ -1,3 +1,4 @@
+{%extends 'all/base.html'%}
 {%load static%}
 
 <!DOCTYPE html>
@@ -10,9 +11,51 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="form">
+    {%block content %}
+    <div class="add-project" id="add-project">
+        <div class="container">
+            <div class="row">
+    
+                <div class="col-md-8 mx-auto card p-5 mt-5">
+                    <div class="panel panel-default">
+    
+                        <div class="panel-heading">
+                            <h3 class="text-center">Add Project</h3>
+                        </div>
+                        <div class="panel-body">
+    
+                            <form action="{%url 'project'%}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{form.as_p}}
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary btn-sm" id= "rate-btn"value="Submit Project">
+                                </div>
+                                <input type="hidden" name="next" value="{{next}}">
+    
+                            </form>
+    
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var form_fields = document.getElementsByTagName('input')
+		form_fields[1].placeholder='Title..';
+		form_fields[2].placeholder='Description ...';
+		form_fields[3].placeholder='Enter Url...';
+		
+
+
+		for (var field in form_fields){	
+			form_fields[field].className += ' form-control'
+		}
+   </script>
+    <!-- <div id="form">
         <h1>Add new project</h1>
-        <form id="form-container" method="POST">
+        <form id="form-container" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{project_formset.management_form}}
             {%for form in project_formset%}
@@ -51,16 +94,17 @@
             container.insertBefore(newForm, addButton)
             
             totalForms.setAttribute('value', `${formNum+1}`)
-        }
+        } 
+     </script>-->
 
 
 
 
 
+        {% endblock %}
 
 
 
-
-  </script>
+ 
 </body>
 </html>
