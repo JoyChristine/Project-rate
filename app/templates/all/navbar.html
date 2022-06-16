@@ -1,6 +1,6 @@
 {%load static%}
-<nav class="navbar navbar-expand-lg bg-dark">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg" id="navbar">
+    <div class="container-fluid" >
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
        data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
         aria-expanded="false" aria-label="Toggle navigation">
@@ -13,18 +13,22 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/" style="color:#fff;">Home</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li> -->
+          <!-- <li> <img src="{%static 'img/awwards.svg'%}" style="width:10vw;margin-left:20vw"/></li> -->
+         
         </ul>
-        <div class="right">
         
-          <p style="color:#fff; font-size:18px;">Hi,{{user.user.username }}
-            <a style="color:#fff;" href="{%url 'userprofile'%}">
-              <img src="{%static 'img/prof.jpg'%}" id ="prof-pic" class="" width='40' height='40' alt="" /></a>
+        <div class="right" style="margin-right:-0.9vw">
+        
+          <p style="color:#fff; font-size:18px;">Hi,{{user }}
+            <a style="color:#fff;text-decoration:none;" href="{% url 'profile' user.id %}">
+              <img src="{{user.profile.profile_pic.url}}" id ="prof-pic" class="" width='40' height='40' alt="" />
+            </a>
+           &nbsp;
+            <!--  -->
+            <a href="{%url 'project' %}" id="button-black">
+              <span>SUBMIT YOUR SITE!</span>
+            </a>
+            <!-- <button  id="add-project">  <a href=''>Add Project</a></button> -->
           </p>
           
          
