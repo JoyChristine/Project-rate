@@ -7,15 +7,15 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    # path('', views.home, name='home'),
     path('user/<id>/',views.userprofile, name='profile'),
     path('api/profiles/', views.MyProfileList.as_view()),
     path('api/projects/', views.MyProjectList.as_view()),
     path('register/', views.register, name='register'),
     path('logout/', views.logoutuser, name='logout'),
-    path('login/', views.signin, name='login'),
+    path('', views.signin, name='login'),
     path('addprojects/', views.addProject, name='project'),
-    path('', ProjectList.as_view(), name='project_list'),
+    path('home', ProjectList.as_view(), name='project_list'),
     path('project/<int:id>/',views.ProjectDetails,name='project_details'),
     path('search/', views.projectSearch, name='search'),
     
