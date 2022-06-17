@@ -9,12 +9,12 @@
 
 
 ## Description
-
+A user can rate a project by clicking on the image to view more details about the proect i.e. description, url
 As a user of the application I should be able to:
 
 * Sign up and login
 * Add a project and caption
-* Rate a project once
+* Rate a project once 
 * Search for a project
 * Logout
 
