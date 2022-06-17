@@ -66,6 +66,9 @@ If you want to use new server run e.g 9000
  ```bash 
  python manage.py test app
 ```
+##### API EndPoints
+Projects API = `127.0.0.1:8000/api/projects`
+Profiles API = `127.0.0.1:8000/api/profiles`
 
   
   
