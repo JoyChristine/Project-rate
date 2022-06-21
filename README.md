@@ -22,7 +22,7 @@ As a user of the application I should be able to:
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-Install Python3 , any code editor e.g Vscode
+Install Python3 , any code editor e.g VScode
 
 ### Installing
  #### Cloning the repository:  
